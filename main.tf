@@ -50,15 +50,15 @@ resource "azurerm_express_route_circuit" "this" {
 }
 
 resource "azurerm_express_route_circuit_peering" "this" {
-    count = var.express_route_circuit_peering.enabled ? 1 : 0
-    resource_group_name = var.resource_group.name
-    express_route_circuit_name = azurerm_express_route_circuit.this.name
-    peering_type = "AzurePrivatePeering"
-    primary_peer_address_prefix = var.express_route_circuit_peering.primary_peer_address_prefix
-    secondary_peer_address_prefix = var.express_route_circuit_peering.secondary_peer_address_prefix
-    vlan_id = var.express_route_circuit_peering.vlan_id
-    shared_key = var.express_route_circuit_peering.shared_key
-    peer_asn = var.express_route_circuit_peering.peer_asn
+  count                         = var.express_route_circuit_peering.enabled ? 1 : 0
+  resource_group_name           = var.resource_group.name
+  express_route_circuit_name    = azurerm_express_route_circuit.this.name
+  peering_type                  = "AzurePrivatePeering"
+  primary_peer_address_prefix   = var.express_route_circuit_peering.primary_peer_address_prefix
+  secondary_peer_address_prefix = var.express_route_circuit_peering.secondary_peer_address_prefix
+  vlan_id                       = var.express_route_circuit_peering.vlan_id
+  shared_key                    = var.express_route_circuit_peering.shared_key
+  peer_asn                      = var.express_route_circuit_peering.peer_asn
 }
 
 
