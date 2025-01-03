@@ -49,7 +49,7 @@ resource "azurerm_express_route_circuit" "this" {
   )
 }
 
-resource "azurerm_express_route_circuit_peering" {
+resource "azurerm_express_route_circuit_peering" "this" {
     count = var.express_route_circuit_peering.enabled ? 1 : 0
     resource_group_name = var.resource_group.name
     express_route_circuit_name = azurerm_express_route_circuit.this.name
