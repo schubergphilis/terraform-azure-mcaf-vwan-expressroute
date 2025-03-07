@@ -21,6 +21,7 @@ variable "tags" {
 variable "express_route_gateway" {
   description = "The Express Route Gateway to create"
   type = object({
+    name                          = string
     scale_units                   = number
     virtual_hub_id                = string
     allow_non_virtual_wan_traffic = optional(bool, false)
@@ -30,6 +31,7 @@ variable "express_route_gateway" {
 variable "express_route_circuit" {
   description = "The Express Route Circuit to create"
   type = object({
+    name                  = string
     bandwidth_in_mbps     = number
     peering_location      = string
     service_provider_name = string
