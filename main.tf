@@ -1,7 +1,7 @@
 resource "azurerm_resource_group" "this" {
   count    = var.create_expressroute_resource_group ? 1 : 0
   name     = var.resource_group.name
-  location = var.resource_group.location
+  location = var.location
   tags = merge(
     try(var.tags),
     tomap({
@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "this" {
 resource "azurerm_express_route_gateway" "this" {
   name                = var.express_route_gateway.name
   resource_group_name = var.resource_group.name
-  location            = var.express_route_gateway.location
+  location            = var.location
 
   scale_units                   = var.express_route_gateway.scale_units
   virtual_hub_id                = var.express_route_gateway.virtual_hub_id
@@ -29,7 +29,7 @@ resource "azurerm_express_route_gateway" "this" {
 resource "azurerm_express_route_circuit" "this" {
   name                = var.express_route_circuit.name
   resource_group_name = var.resource_group.name
-  location            = var.express_route_circuit.location
+  location            = var.location
 
   bandwidth_in_mbps     = var.express_route_circuit.bandwidth_in_mbps
   peering_location      = var.express_route_circuit.peering_location

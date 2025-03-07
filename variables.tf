@@ -12,6 +12,11 @@ variable "resource_group" {
   })
 }
 
+variable "location" {
+  description = "The location/region to deploy the Express Route Gateway"
+  type        = string
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resource."
   type        = map(string)
