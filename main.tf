@@ -1,6 +1,6 @@
 resource "azurerm_express_route_gateway" "this" {
   name                = var.express_route_gateway.name
-  resource_group_name = var.resource_group.name
+  resource_group_name = var.resource_group_name
   location            = var.location
 
   scale_units                   = var.express_route_gateway.scale_units
