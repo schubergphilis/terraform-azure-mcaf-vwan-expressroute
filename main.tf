@@ -1,15 +1,3 @@
-resource "azurerm_resource_group" "this" {
-  count    = var.create_expressroute_resource_group ? 1 : 0
-  name     = var.resource_group.name
-  location = var.location
-  tags = merge(
-    try(var.tags),
-    tomap({
-      "Resource Type" = "Resource Group"
-    })
-  )
-}
-
 resource "azurerm_express_route_gateway" "this" {
   name                = var.express_route_gateway.name
   resource_group_name = var.resource_group.name

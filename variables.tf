@@ -1,15 +1,6 @@
-variable "create_expressroute_resource_group" {
-  description = "A flag to create a Resource Group for the Express Route Gateway"
-  type        = bool
-  default     = true
-}
-
-variable "resource_group" {
-  description = "The Resource Group to add the Express Route Gateway to or create if create_expressroute_resource_group is true"
-  type = object({
-    name     = string
-    location = string
-  })
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Express Route Gateway"
+  type        = string
 }
 
 variable "location" {
@@ -54,6 +45,6 @@ variable "express_route_circuit_peering" {
     vlan_id                       = optional(number)
     shared_key                    = optional(string)
     peer_asn                      = optional(number)
-    
+
   })
 }
