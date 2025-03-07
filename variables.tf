@@ -53,5 +53,7 @@ variable "express_route_circuit_peering" {
     secondary_peer_address_prefix = optional(string)
     vlan_id                       = optional(number)
     shared_key                    = optional(string)
+    peer_asn                      = optional(number)
+    
   })
 }
