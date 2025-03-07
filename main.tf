@@ -16,7 +16,7 @@ resource "azurerm_express_route_gateway" "this" {
 
 resource "azurerm_express_route_circuit" "this" {
   name                = var.express_route_circuit.name
-  resource_group_name = var.resource_group.name
+  resource_group_name = var.resource_group_name
   location            = var.location
 
   bandwidth_in_mbps     = var.express_route_circuit.bandwidth_in_mbps
@@ -39,7 +39,7 @@ resource "azurerm_express_route_circuit" "this" {
 
 resource "azurerm_express_route_circuit_peering" "this" {
   count                         = var.express_route_circuit_peering.enabled ? 1 : 0
-  resource_group_name           = var.resource_group.name
+  resource_group_name           = var.resource_group_name
   express_route_circuit_name    = azurerm_express_route_circuit.this.name
   peering_type                  = "AzurePrivatePeering"
   primary_peer_address_prefix   = var.express_route_circuit_peering.primary_peer_address_prefix
