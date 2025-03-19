@@ -14,7 +14,6 @@ variable "tags" {
   default     = {}
 }
 
-
 variable "express_route_circuit" {
   description = "The Express Route Circuit to create"
   type = object({
@@ -26,6 +25,7 @@ variable "express_route_circuit" {
     sku_family             = optional(string)
     authorization_key_name = optional(string)
   })
+  default = {}
 }
 
 variable "express_route_circuit_peering" {
@@ -38,6 +38,7 @@ variable "express_route_circuit_peering" {
     shared_key                    = optional(string)
     peer_asn                      = optional(number)
   })
+  default = {}
 }
 
 variable "express_route_gateway" {
@@ -46,18 +47,18 @@ variable "express_route_gateway" {
     name                          = optional(string)
     scale_units                   = optional(number)
     virtual_hub_id                = optional(string)
-    allow_non_virtual_wan_traffic = optional(bool, true)
+    allow_non_virtual_wan_traffic = optional(bool)
   })
+  default = {}
 }
+
 variable "express_route_gateway_connection" {
   description = "The Express Route Gateway Connection to create"
   type = object({
-    name                = optional(string)
-    peering_id          = optional(string)
-    peer_peerings_id    = optional(string)
-    address_prefix_ipv4 = optional(string)
-    authorization_key   = optional(string)
-    er_gateway_id       = optional(string)
-    circuit_peering_id  = optional(string)
+    name               = optional(string)
+    er_gateway_id      = optional(string)
+    circuit_peering_id = optional(string)
+    authorization_key  = optional(string)
   })
+  default = {}
 }
