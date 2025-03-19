@@ -1,13 +1,13 @@
 resource "azurerm_express_route_circuit" "this" {
   count               = var.express_route_circuit != null ? 1 : 0
-  name                = each.value.name
+  name                = var.express_route_circuit.name
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  bandwidth_in_mbps     = each.value.bandwidth_in_mbps
-  peering_location      = each.value.peering_location
-  service_provider_name = each.value.service_provider_name
-  authorization_key     = each.value.authorization_key_name
+  bandwidth_in_mbps     = var.express_route_circuit.bandwidth_in_mbps
+  peering_location      = var.express_route_circuit.peering_location
+  service_provider_name = var.express_route_circuit.service_provider_name
+  authorization_key     = var.express_route_circuit.authorization_key_name
 
   sku {
     tier   = each.value.sku_tier
@@ -28,22 +28,22 @@ resource "azurerm_express_route_circuit_peering" "this" {
   resource_group_name           = var.resource_group_name
   express_route_circuit_name    = azurerm_express_route_circuit.this.name
   peering_type                  = "AzurePrivatePeering"
-  primary_peer_address_prefix   = each.value.primary_peer_address_prefix
-  secondary_peer_address_prefix = each.value.secondary_peer_address_prefix
-  vlan_id                       = each.value.vlan_id
-  shared_key                    = each.value.shared_key
-  peer_asn                      = each.value.peer_asn
+  primary_peer_address_prefix   = var.express_route_circuit_peering.primary_peer_address_prefix
+  secondary_peer_address_prefix = var.express_route_circuit_peering.secondary_peer_address_prefix
+  vlan_id                       = var.express_route_circuit_peering.vlan_id
+  shared_key                    = var.express_route_circuit_peering.shared_key
+  peer_asn                      = var.express_route_circuit_peering.peer_asn
 }
 
 resource "azurerm_express_route_gateway" "this" {
   count               = var.express_route_gateway != null ? 1 : 0
-  name                = each.value.name
+  name                = var.express_route_gateway.name
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  scale_units                   = each.value.scale_units
-  virtual_hub_id                = each.value.virtual_hub_id
-  allow_non_virtual_wan_traffic = each.value.allow_non_virtual_wan_traffic
+  scale_units                   = var.express_route_gateway.scale_units
+  virtual_hub_id                = var.express_route_gateway.virtual_hub_id
+  allow_non_virtual_wan_traffic = var.express_route_gateway.allow_non_virtual_wan_traffic
   tags = merge(
     try(var.tags),
     tomap({
@@ -54,9 +54,9 @@ resource "azurerm_express_route_gateway" "this" {
 
 resource "azurerm_express_route_connection" "this" {
   count                            = var.express_route_gateway_connection != null ? 1 : 0
-  name                             = each.value.name
-  express_route_gateway_id         = try(azurerm_express_route_gateway.this.id, each.value.er_gateway_id)
-  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id, each.value.circuit_peering_id)
-  authorization_key                = each.value.authorization_key
+  name                             = var.express_route_gateway_connection.name
+  express_route_gateway_id         = try(azurerm_express_route_gateway.this.id, var.express_route_gateway_connection.er_gateway_id)
+  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id, var.express_route_circuit_peering.circuit_peering_id)
+  authorization_key                = var.express_route_gateway_connection.authorization_key
 }
 
