@@ -26,7 +26,7 @@ resource "azurerm_express_route_circuit" "this" {
 resource "azurerm_express_route_circuit_peering" "this" {
   count                         = var.express_route_circuit_peering != null ? 1 : 0
   resource_group_name           = var.resource_group_name
-  express_route_circuit_name    = azurerm_express_route_circuit.this.name
+  express_route_circuit_name    = azurerm_express_route_circuit.this[0].name
   peering_type                  = "AzurePrivatePeering"
   primary_peer_address_prefix   = var.express_route_circuit_peering.primary_peer_address_prefix
   secondary_peer_address_prefix = var.express_route_circuit_peering.secondary_peer_address_prefix
@@ -55,8 +55,8 @@ resource "azurerm_express_route_gateway" "this" {
 resource "azurerm_express_route_connection" "this" {
   count                            = var.express_route_gateway_connection != null ? 1 : 0
   name                             = var.express_route_gateway_connection.name
-  express_route_gateway_id         = try(azurerm_express_route_gateway.this.id, var.express_route_gateway_connection.er_gateway_id)
-  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id, var.express_route_circuit_peering.circuit_peering_id)
+  express_route_gateway_id         = try(azurerm_express_route_gateway.this[0].id, var.express_route_gateway_connection.er_gateway_id)
+  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this[0].id, var.express_route_circuit_peering.circuit_peering_id)
   authorization_key                = var.express_route_gateway_connection.authorization_key
 }
 
