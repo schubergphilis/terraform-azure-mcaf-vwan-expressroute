@@ -55,8 +55,8 @@ resource "azurerm_express_route_gateway" "this" {
 resource "azurerm_express_route_connection" "this" {
   for_each                         = var.express_route_gateway_connection != null ? var.express_route_gateway_connection : {}
   name                             = each.value.name
-  express_route_gateway_id         = try(azurerm_express_route_gateway.this.[0], each.value.er_gateway_id)
-  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id[0], each.value.circuit_peering_id)
+  express_route_gateway_id         = try(azurerm_express_route_gateway.this.[0].id, each.value.er_gateway_id)
+  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id[0].id, each.value.circuit_peering_id)
   authorization_key                = each.value.authorization_key
 }
 
