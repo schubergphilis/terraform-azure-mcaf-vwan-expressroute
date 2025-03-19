@@ -15,7 +15,7 @@ resource "azurerm_express_route_circuit" "this" {
   }
 
   tags = merge(
-    try(each.value.tags),
+    try(var.tags),
     tomap({
       "Resource Type" = "Express Route Circuit"
     })
@@ -45,7 +45,7 @@ resource "azurerm_express_route_gateway" "this" {
   virtual_hub_id                = var.express_route_gateway[each.key].virtual_hub_id
   allow_non_virtual_wan_traffic = var.express_route_gateway[each.key].allow_non_virtual_wan_traffic
   tags = merge(
-    try(each.value.tags),
+    try(var.tags),
     tomap({
       "Resource Type" = "Express Route Gateway"
     })
