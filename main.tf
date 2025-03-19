@@ -1,5 +1,5 @@
 resource "azurerm_express_route_circuit" "this" {
-  for_each            = var.express_route_circuit != null ? var.express_route_circuit : {}
+  count               = var.express_route_circuit != null ? 1 : 0
   name                = each.value.name
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -24,9 +24,9 @@ resource "azurerm_express_route_circuit" "this" {
 
 
 resource "azurerm_express_route_circuit_peering" "this" {
-  for_each                      = var.express_route_circuit_peering != null ? var.express_route_circuit_peering : {}
+  count                         = var.express_route_circuit_peering != null ? 1 : 0
   resource_group_name           = var.resource_group_name
-  express_route_circuit_name    = azurerm_express_route_circuit.this[each.key].name
+  express_route_circuit_name    = azurerm_express_route_circuit.this.name
   peering_type                  = "AzurePrivatePeering"
   primary_peer_address_prefix   = each.value.primary_peer_address_prefix
   secondary_peer_address_prefix = each.value.secondary_peer_address_prefix
@@ -36,7 +36,7 @@ resource "azurerm_express_route_circuit_peering" "this" {
 }
 
 resource "azurerm_express_route_gateway" "this" {
-  for_each            = var.express_route_gateway != null ? var.express_route_gateway : {}
+  count               = var.express_route_gateway != null ? 1 : 0
   name                = each.value.name
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -53,10 +53,10 @@ resource "azurerm_express_route_gateway" "this" {
 }
 
 resource "azurerm_express_route_connection" "this" {
-  for_each                         = var.express_route_gateway_connection != null ? var.express_route_gateway_connection : {}
+  count                            = var.express_route_gateway_connection != null ? 1 : 0
   name                             = each.value.name
-  express_route_gateway_id         = try(azurerm_express_route_gateway.this[each.key].id, each.value.er_gateway_id)
-  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this[each.key].id, each.value.circuit_peering_id)
+  express_route_gateway_id         = try(azurerm_express_route_gateway.this.id, each.value.er_gateway_id)
+  express_route_circuit_peering_id = try(azurerm_express_route_circuit_peering.this.id, each.value.circuit_peering_id)
   authorization_key                = each.value.authorization_key
 }
 
