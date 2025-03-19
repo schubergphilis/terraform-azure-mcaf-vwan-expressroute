@@ -10,8 +10,8 @@ resource "azurerm_express_route_circuit" "this" {
   authorization_key     = var.express_route_circuit.authorization_key_name
 
   sku {
-    tier   = each.value.sku_tier
-    family = each.value.sku_family
+    tier   = var.express_route_circuit.sku_tier
+    family = var.express_route_circuit.sku_family
   }
 
   tags = merge(
