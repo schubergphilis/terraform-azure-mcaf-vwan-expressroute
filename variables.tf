@@ -18,6 +18,7 @@ variable "express_route_circuit" {
   description = "The Express Route Circuit to create"
   type = object({
     name                   = optional(string)
+    location               = optional(string)
     bandwidth_in_mbps      = optional(number)
     peering_location       = optional(string)
     service_provider_name  = optional(string)

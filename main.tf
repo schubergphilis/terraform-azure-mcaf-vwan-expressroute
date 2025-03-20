@@ -2,7 +2,7 @@ resource "azurerm_express_route_circuit" "this" {
   count               = var.express_route_circuit != null ? 1 : 0
   name                = var.express_route_circuit.name
   resource_group_name = var.resource_group_name
-  location            = var.location
+  location            = try(var.express_route_circuit.location, var.location)
 
   bandwidth_in_mbps     = var.express_route_circuit.bandwidth_in_mbps
   peering_location      = var.express_route_circuit.peering_location
@@ -22,9 +22,9 @@ resource "azurerm_express_route_circuit" "this" {
 }
 
 resource "azurerm_express_route_circuit_authorization" "this" {
-  count = var.express_route_circuit != null ? 1 : 0
-  name  = "${var.express_route_circuit.name}-key"
-  resource_group_name = var.resource_group_name
+  count                      = var.express_route_circuit != null ? 1 : 0
+  name                       = "${var.express_route_circuit.name}-key"
+  resource_group_name        = var.resource_group_name
   express_route_circuit_name = azurerm_express_route_circuit.this[0].name
 }
 
