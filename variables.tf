@@ -23,7 +23,6 @@ variable "express_route_circuit" {
     service_provider_name  = optional(string)
     sku_tier               = optional(string)
     sku_family             = optional(string)
-    authorization_key_name = optional(string)
   })
   default = null
 }

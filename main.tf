@@ -7,7 +7,6 @@ resource "azurerm_express_route_circuit" "this" {
   bandwidth_in_mbps     = var.express_route_circuit.bandwidth_in_mbps
   peering_location      = var.express_route_circuit.peering_location
   service_provider_name = var.express_route_circuit.service_provider_name
-  authorization_key     = var.express_route_circuit.authorization_key_name
 
   sku {
     tier   = var.express_route_circuit.sku_tier
@@ -22,6 +21,12 @@ resource "azurerm_express_route_circuit" "this" {
   )
 }
 
+resource "azurerm_express_route_circuit_authorization" "this" {
+  count = var.express_route_circuit != null ? 1 : 0
+  name  = "${var.express_route_circuit.name}-key"
+  resource_group_name = var.resource_group_name
+  express_route_circuit_name = azurerm_express_route_circuit.this[0].name
+}
 
 resource "azurerm_express_route_circuit_peering" "this" {
   count                         = var.express_route_circuit_peering != null ? 1 : 0
