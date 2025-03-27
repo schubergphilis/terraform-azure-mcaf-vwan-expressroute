@@ -13,12 +13,7 @@ resource "azurerm_express_route_circuit" "this" {
     family = var.express_route_circuit.sku_family
   }
 
-  tags = merge(
-    try(var.tags),
-    tomap({
-      "Resource Type" = "Express Route Circuit"
-    })
-  )
+  tags = merge(var.tags, { "Resource Type" = "Express Route Circuit" })
 }
 
 resource "azurerm_express_route_circuit_authorization" "this" {
@@ -49,12 +44,8 @@ resource "azurerm_express_route_gateway" "this" {
   scale_units                   = var.express_route_gateway.scale_units
   virtual_hub_id                = var.express_route_gateway.virtual_hub_id
   allow_non_virtual_wan_traffic = var.express_route_gateway.allow_non_virtual_wan_traffic
-  tags = merge(
-    try(var.tags),
-    tomap({
-      "Resource Type" = "Express Route Gateway"
-    })
-  )
+
+  tags = merge(var.tags, { "Resource Type" = "Express Route Gateway" })
 }
 
 resource "azurerm_express_route_connection" "this" {
