@@ -24,6 +24,7 @@ module "expressroute" {
     sku_family               = "MeteredData"
     allow_classic_operations = false
   }
+  
   express_route_circuit_peering = {
     primary_peer_address_prefix   = "1.1.1.1"
     secondary_peer_address_prefix = "1.1.1.2"
@@ -31,12 +32,14 @@ module "expressroute" {
     shared_key_keyvault_secret_id = "Resource ID of the keyvault secret"
     peer_asn                      = 64515
   }
+
   express_route_gateway = {
     name                          = "example-name"
     scale_units                   = "2"
     virtual_hub_id                = "Resource ID of the Virtual HUB"
     allow_non_virtual_wan_traffic = false
   }
+
   express_route_gateway_connection = {
     name                                 = "example-name"
     er_gateway_id                        = "Resource ID of the Express Route gateway"
