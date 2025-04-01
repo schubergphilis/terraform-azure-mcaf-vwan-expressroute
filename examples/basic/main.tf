@@ -24,7 +24,7 @@ module "expressroute" {
     sku_family               = "MeteredData"
     allow_classic_operations = false
   }
-  
+
   express_route_circuit_peering = {
     primary_peer_address_prefix   = "1.1.1.1"
     secondary_peer_address_prefix = "1.1.1.2"
