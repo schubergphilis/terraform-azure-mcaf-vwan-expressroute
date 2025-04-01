@@ -1,9 +1,9 @@
 resource "azurerm_express_route_circuit" "this" {
-  count               = var.express_route_circuit != null ? 1 : 0
-  name                = var.express_route_circuit.name
-  resource_group_name = var.resource_group_name
-  location            = try(var.express_route_circuit.location, var.location)
+  count = var.express_route_circuit != null ? 1 : 0
 
+  name                     = var.express_route_circuit.name
+  resource_group_name      = var.resource_group_name
+  location                 = try(var.express_route_circuit.location, var.location)
   bandwidth_in_mbps        = var.express_route_circuit.bandwidth_in_mbps
   peering_location         = var.express_route_circuit.peering_location
   service_provider_name    = var.express_route_circuit.service_provider_name
@@ -18,14 +18,16 @@ resource "azurerm_express_route_circuit" "this" {
 }
 
 resource "azurerm_express_route_circuit_authorization" "this" {
-  count                      = var.express_route_circuit != null ? 1 : 0
+  count = var.express_route_circuit != null ? 1 : 0
+
   name                       = "${var.express_route_circuit.name}-key"
   resource_group_name        = var.resource_group_name
   express_route_circuit_name = azurerm_express_route_circuit.this[0].name
 }
 
 resource "azurerm_express_route_circuit_peering" "this" {
-  count                         = var.express_route_circuit_peering != null ? 1 : 0
+  count = var.express_route_circuit_peering != null ? 1 : 0
+
   resource_group_name           = var.resource_group_name
   express_route_circuit_name    = azurerm_express_route_circuit.this[0].name
   peering_type                  = "AzurePrivatePeering"
@@ -37,11 +39,11 @@ resource "azurerm_express_route_circuit_peering" "this" {
 }
 
 resource "azurerm_express_route_gateway" "this" {
-  count               = var.express_route_gateway != null ? 1 : 0
-  name                = var.express_route_gateway.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
+  count = var.express_route_gateway != null ? 1 : 0
 
+  name                          = var.express_route_gateway.name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
   scale_units                   = var.express_route_gateway.scale_units
   virtual_hub_id                = var.express_route_gateway.virtual_hub_id
   allow_non_virtual_wan_traffic = var.express_route_gateway.allow_non_virtual_wan_traffic
@@ -50,7 +52,8 @@ resource "azurerm_express_route_gateway" "this" {
 }
 
 resource "azurerm_express_route_connection" "this" {
-  count                            = var.express_route_gateway_connection != null ? 1 : 0
+  count = var.express_route_gateway_connection != null ? 1 : 0
+
   name                             = var.express_route_gateway_connection.name
   express_route_gateway_id         = coalesce(azurerm_express_route_gateway.this[0].id, var.express_route_gateway_connection.er_gateway_id)
   express_route_circuit_peering_id = coalesce(azurerm_express_route_circuit_peering.this[0].id, var.express_route_gateway_connection.circuit_peering_id)
