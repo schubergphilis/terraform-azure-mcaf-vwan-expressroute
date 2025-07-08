@@ -29,7 +29,7 @@ module "expressroute" {
     primary_peer_address_prefix   = "1.1.1.1"
     secondary_peer_address_prefix = "1.1.1.2"
     vlan_id                       = 200
-    shared_key_keyvault_secret_id = "Resource ID of the keyvault secret"
+    shared_key                    = "either keyvault secret output or a secret variable"
     peer_asn                      = 64515
   }
 
@@ -41,9 +41,9 @@ module "expressroute" {
   }
 
   express_route_gateway_connection = {
-    name                                 = "example-name"
-    er_gateway_id                        = "Resource ID of the Express Route gateway"
-    circuit_peering_id                   = "Resource ID of the circuit peering"
-    authorization_key_keyvault_secret_id = "Resource ID of the keyvault secret"
+    name                             = "example-name"
+    express_route_gateway_id         = "Resource ID of the Express Route gateway"
+    express_route_circuit_peering_id = "Resource ID of the Express Route circuit peering"
+    authorization_key                = "Resource ID of the keyvault secret or a string value"
   }
 }
