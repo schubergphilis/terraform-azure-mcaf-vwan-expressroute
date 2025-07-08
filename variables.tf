@@ -66,7 +66,7 @@ variable "express_route_gateway_connection" {
       associated_route_table_id = optional(string)
       inbound_route_map_id      = optional(string)
       outbound_route_map_id     = optional(string)
-      propagated_route_table    = optional(object({
+      propagated_route_table = optional(object({
         labels          = optional(list(string))
         route_table_ids = list(string)
       }))
