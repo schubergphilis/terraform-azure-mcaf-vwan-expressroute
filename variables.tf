@@ -35,7 +35,7 @@ variable "express_route_circuit_peering" {
     primary_peer_address_prefix   = string
     secondary_peer_address_prefix = string
     vlan_id                       = number
-    shared_key_keyvault_secret_id = string
+    shared_key                    = string
     peer_asn                      = number
   })
   default = null
@@ -55,10 +55,10 @@ variable "express_route_gateway" {
 variable "express_route_gateway_connection" {
   description = "The Express Route Gateway Connection to create"
   type = object({
-    name                                 = string
-    er_gateway_id                        = string
-    circuit_peering_id                   = string
-    authorization_key_keyvault_secret_id = string
+    name                             = string
+    express_route_gateway_id         = string
+    express_route_circuit_peering_id = string
+    authorization_key                = string
   })
   default = null
 }

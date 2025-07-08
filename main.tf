@@ -34,7 +34,7 @@ resource "azurerm_express_route_circuit_peering" "this" {
   primary_peer_address_prefix   = var.express_route_circuit_peering.primary_peer_address_prefix
   secondary_peer_address_prefix = var.express_route_circuit_peering.secondary_peer_address_prefix
   vlan_id                       = var.express_route_circuit_peering.vlan_id
-  shared_key                    = var.express_route_circuit_peering.shared_key_keyvault_secret_id
+  shared_key                    = var.express_route_circuit_peering.shared_key
   peer_asn                      = var.express_route_circuit_peering.peer_asn
 }
 
@@ -55,8 +55,8 @@ resource "azurerm_express_route_connection" "this" {
   count = var.express_route_gateway_connection != null ? 1 : 0
 
   name                             = var.express_route_gateway_connection.name
-  express_route_gateway_id         = coalesce(length(azurerm_express_route_gateway.this) > 0 ? azurerm_express_route_gateway.this[0].id : null, var.express_route_gateway_connection.er_gateway_id)
-  express_route_circuit_peering_id = coalesce(length(azurerm_express_route_circuit_peering.this) > 0 ? azurerm_express_route_circuit_peering.this[0].id : null, var.express_route_gateway_connection.circuit_peering_id)
+  express_route_gateway_id         = coalesce(length(azurerm_express_route_gateway.this) > 0 ? azurerm_express_route_gateway.this[0].id : null, var.express_route_gateway_connection.express_route_gateway_id)
+  express_route_circuit_peering_id = coalesce(length(azurerm_express_route_circuit_peering.this) > 0 ? azurerm_express_route_circuit_peering.this[0].id : null, var.express_route_gateway_connection.express_route_circuit_peering_id)
   authorization_key                = var.express_route_gateway_connection.authorization_key_keyvault_secret_id
 }
 

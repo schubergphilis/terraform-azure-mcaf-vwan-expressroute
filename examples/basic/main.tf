@@ -42,7 +42,7 @@ module "expressroute" {
 
   express_route_gateway_connection = {
     name                                 = "example-name"
-    er_gateway_id                        = "Resource ID of the Express Route gateway"
+    express_route_gateway_id                        = "Resource ID of the Express Route gateway"
     circuit_peering_id                   = "Resource ID of the circuit peering"
     authorization_key_keyvault_secret_id = "Resource ID of the keyvault secret"
   }
