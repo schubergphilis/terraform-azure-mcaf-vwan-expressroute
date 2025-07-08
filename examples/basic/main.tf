@@ -13,6 +13,7 @@ module "expressroute" {
   source              = "../.."
   resource_group_name = "rg-example"
   location            = "westeurope"
+  create_express_route_circuit_authorization = false
 
   express_route_circuit = {
     name                     = "example-name"

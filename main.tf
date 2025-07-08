@@ -18,7 +18,7 @@ resource "azurerm_express_route_circuit" "this" {
 }
 
 resource "azurerm_express_route_circuit_authorization" "this" {
-  count = var.express_route_circuit != null ? 1 : 0
+  count = var.create_express_route_circuit_authorization && var.express_route_circuit != null ? 1 : 0
 
   name                       = "${var.express_route_circuit.name}-key"
   resource_group_name        = var.resource_group_name

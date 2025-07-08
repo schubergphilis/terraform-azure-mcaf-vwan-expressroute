@@ -29,6 +29,12 @@ variable "express_route_circuit" {
   default = null
 }
 
+variable "create_express_route_circuit_authorization" {
+  description = "Whether to create the Express Route Circuit Authorization resource. Default is false."
+  type        = bool
+  default     = true
+}
+
 variable "express_route_circuit_peering" {
   description = "The Express Route Circuit Peering to create. Circuit name is used if you don't deploy the Express Route Circuit from this module"
   type = object({
@@ -53,7 +59,6 @@ variable "express_route_gateway" {
 }
 
 variable "express_route_gateway_connection" {
-  description = "The Express Route Gateway Connection to create"
   type = object({
     name                                 = string
     express_route_gateway_id             = string
@@ -73,4 +78,24 @@ variable "express_route_gateway_connection" {
     }))
   })
   default = null
+  description = <<DESCRIPTION
+    The Express Route Gateway Connection to create. Circuit peering ID is used if you don't deploy the Express Route Circuit from this module.
+    If you want to use a keyvault secret for the authorization key, use the resource ID of the keyvault secret.
+
+    - name: The name of the Express Route Gateway Connection.
+    - express_route_gateway_id: The ID of the Express Route Gateway.
+    - express_route_circuit_peering_id: The ID of the Express Route Circuit Peering.
+    - authorization_key: The authorization key for the Express Route Gateway Connection. If you want to use a keyvault secret, use the resource ID of the keyvault secret.
+    - express_route_gateway_bypass_enabled: Whether to enable bypass for the Express Route Gateway, default is false.
+    - enable_internet_security: Whether to enable internet security for the Express Route Gateway Connection, default is false.
+    - routing_weight: The routing weight for the Express Route Gateway Connection, default is 0.
+    - routing: Optional routing configuration for the Express Route Gateway Connection.
+      - associated_route_table_id: The ID of the associated route table.
+      - inbound_route_map_id: The ID of the inbound route map.
+      - outbound_route_map_id: The ID of the outbound route map.
+      - propagated_route_table: Optional propagated route table configuration.
+        - labels: List of labels for the propagated route table.
+        - route_table_ids: List of route table IDs to propagate.
+  DESCRIPTION
 }
+
