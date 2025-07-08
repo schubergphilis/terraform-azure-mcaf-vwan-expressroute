@@ -34,12 +34,17 @@ No modules.
 | <a name="input_location"></a> [location](#input\_location) | The location/region to deploy the Express Route Gateway | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the Express Route Gateway | `string` | n/a | yes |
 | <a name="input_express_route_circuit"></a> [express\_route\_circuit](#input\_express\_route\_circuit) | The Express Route Circuit to create | <pre>object({<br/>    name                     = string<br/>    location                 = string<br/>    bandwidth_in_mbps        = number<br/>    peering_location         = string<br/>    service_provider_name    = string<br/>    sku_tier                 = string<br/>    sku_family               = string<br/>    allow_classic_operations = optional(bool, false)<br/>  })</pre> | `null` | no |
-| <a name="input_express_route_circuit_peering"></a> [express\_route\_circuit\_peering](#input\_express\_route\_circuit\_peering) | The Express Route Circuit Peering to create. Circuit name is used if you don't deploy the Express Route Circuit from this module | <pre>object({<br/>    primary_peer_address_prefix   = string<br/>    secondary_peer_address_prefix = string<br/>    vlan_id                       = number<br/>    shared_key_keyvault_secret_id = string<br/>    peer_asn                      = number<br/>  })</pre> | `null` | no |
+| <a name="input_express_route_circuit_peering"></a> [express\_route\_circuit\_peering](#input\_express\_route\_circuit\_peering) | The Express Route Circuit Peering to create. Circuit name is used if you don't deploy the Express Route Circuit from this module | <pre>object({<br/>    primary_peer_address_prefix   = string<br/>    secondary_peer_address_prefix = string<br/>    vlan_id                       = number<br/>    shared_key                    = string<br/>    peer_asn                      = number<br/>  })</pre> | `null` | no |
 | <a name="input_express_route_gateway"></a> [express\_route\_gateway](#input\_express\_route\_gateway) | The Express Route Gateway to create | <pre>object({<br/>    name                          = string<br/>    scale_units                   = string<br/>    virtual_hub_id                = string<br/>    allow_non_virtual_wan_traffic = optional(bool, false)<br/>  })</pre> | `null` | no |
-| <a name="input_express_route_gateway_connection"></a> [express\_route\_gateway\_connection](#input\_express\_route\_gateway\_connection) | The Express Route Gateway Connection to create | <pre>object({<br/>    name                                 = string<br/>    express_route_gateway_id                        = string<br/>    circuit_peering_id                   = string<br/>    authorization_key_keyvault_secret_id = string<br/>  })</pre> | `null` | no |
+| <a name="input_express_route_gateway_connection"></a> [express\_route\_gateway\_connection](#input\_express\_route\_gateway\_connection) | The Express Route Gateway Connection to create | <pre>object({<br/>    name                             = string<br/>    express_route_gateway_id         = string<br/>    express_route_circuit_peering_id = string<br/>    authorization_key                = string<br/>  })</pre> | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_express_route_circuit_id"></a> [express\_route\_circuit\_id](#output\_express\_route\_circuit\_id) | The ID of the Express Route Circuit |
+| <a name="output_express_route_circuit_name"></a> [express\_route\_circuit\_name](#output\_express\_route\_circuit\_name) | The name of the Express Route Circuit |
+| <a name="output_express_route_circuit_peering_id"></a> [express\_route\_circuit\_peering\_id](#output\_express\_route\_circuit\_peering\_id) | The ID of the Express Route Circuit Peering |
+| <a name="output_express_route_gateway_id"></a> [express\_route\_gateway\_id](#output\_express\_route\_gateway\_id) | The ID of the Express Route Gateway |
 <!-- END_TF_DOCS -->
