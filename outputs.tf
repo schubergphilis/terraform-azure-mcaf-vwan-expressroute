@@ -1,11 +1,11 @@
 output "express_route_circuit_name" {
   description = "The name of the Express Route Circuit"
-  value       = azurerm_express_route_circuit.this[0].name
+  value       = length(azurerm_express_route_circuit.this) > 0 ? azurerm_express_route_circuit.this[0].name : null
 }
 
 output "express_route_circuit_id" {
   description = "The ID of the Express Route Circuit"
-  value       = azurerm_express_route_circuit.this[0].id
+  value       = length(azurerm_express_route_circuit.this) > 0 ? azurerm_express_route_circuit.this[0].id : null
 }
 
 output "express_route_circuit_peering_id" {
