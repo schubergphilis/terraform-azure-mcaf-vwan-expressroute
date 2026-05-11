@@ -58,5 +58,6 @@ resource "azurerm_express_route_connection" "this" {
   express_route_gateway_id         = coalesce(length(azurerm_express_route_gateway.this) > 0 ? azurerm_express_route_gateway.this[0].id : null, var.express_route_gateway_connection.express_route_gateway_id)
   express_route_circuit_peering_id = coalesce(length(azurerm_express_route_circuit_peering.this) > 0 ? azurerm_express_route_circuit_peering.this[0].id : null, var.express_route_gateway_connection.express_route_circuit_peering_id)
   authorization_key                = var.express_route_gateway_connection.authorization_key
+  routing_weight                   = var.express_route_gateway_connection.routing_weight
 }
 
